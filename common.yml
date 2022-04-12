@@ -1,0 +1,7 @@
+---
+- name: common
+  hosts: apache
+  gather_facts: no
+  become: yes
+  roles:
+    - common

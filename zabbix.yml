@@ -1,0 +1,7 @@
+---
+- name: apache
+  hosts: apache
+  gather_facts: no
+  become: yes
+  roles:
+    - zabbix

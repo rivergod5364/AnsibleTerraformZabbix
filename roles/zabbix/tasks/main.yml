@@ -1,0 +1,42 @@
+---
+  - name: install yum packages
+    tags: zabbix
+    yum:
+      name: "{{ yum_packages }}"
+      state: present
+
+  - name: set httpd conf
+    tags: zabbix
+    lineinfile:
+      path: /etc/php-fpm.d/zabbix.conf
+      regexp: "; php_value[date.timezone] = Europe/Riga"
+      line: "php_value[date.timezone] = Asia/Tokyo"
+      state: present
+      backup: yes
+
+  - name: set DB conf
+    tags: zabbix
+    lineinfile:
+      path: /etc/zabbix/zabbix_server.conf
+      regexp: "# DBPassword="
+      line: "DBPassword=zabbixpass"
+      state: present
+      backup: yes
+
+  - name: set DB conf
+    tags: zabbix
+    lineinfile:
+      path: /etc/zabbix/zabbix_agent2.conf
+      regexp: "Hostname=Zabbix server"
+      line: "Hostname=zbx01"
+      state: present
+      backup: yes
+    notify: apache restart
+
+  - name: services start
+    tags: zabbix
+    service:
+      name: "{{ item }}"
+      enabled: yes
+      state: started
+    with_items: "{{ services }}"

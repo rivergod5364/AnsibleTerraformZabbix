@@ -1,0 +1,10 @@
+---
+- hosts: localhost
+  gather_facts: no
+  connection: local
+  tasks:
+  - name: terraform destroy
+    terraform:
+      project_path: terraform/
+      state: absent
+      force_init: yes

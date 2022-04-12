@@ -1,0 +1,16 @@
+---
+  - name: check reachable
+    tags: init
+    wait_for_connection:
+      timeout: 300
+  
+  - name: set hostname
+    tags: hostname
+    hostname:
+      name: "{{ hostname }}"
+
+  - name: disable selinux
+    tags: selinux
+    selinux:
+        state: disabled
+    notify: reboot

@@ -1,0 +1,6 @@
+---
+- name: apache restart
+  tags: zabbix_server
+  service:
+    name: httpd
+    state: restarted

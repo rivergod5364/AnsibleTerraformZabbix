@@ -1,0 +1,17 @@
+---
+  - name: terraform apply
+    tags: init
+    terraform:
+      project_path: terraform/
+      state: present
+      force_init: yes
+
+  - name: refresh inventory
+    tags: init
+    meta: refresh_inventory
+
+  - name: put ansible_spec_hosts
+    tags: ansible_spec
+    template:
+      src: hosts.j2
+      dest: ./ansible_spec_hosts
